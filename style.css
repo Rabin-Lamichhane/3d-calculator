@@ -1,0 +1,212 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  perspective: 2200px;
+  overflow: hidden;
+  background-color: black;
+}
+* {
+  transform-style: preserve-3d;
+}
+
+.scene {
+  position: absolute;
+  transform-style: preserve-3d;
+  left: 60%;
+  top: 60%;
+  transform: translate(-50%, -50%) rotateY(-100deg) rotateX(20deg);
+  animation: rotate 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateY(-100deg) rotateX(20deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateY(30deg) rotateX(20deg);
+  }
+}
+
+.floor {
+  --width: 400px;
+  --height: 550px;
+  --depth: 45px;
+  --color: rgb(29, 29, 29);
+  --shadow: inset 0 0 2pt 0.5pt rgba(80, 95, 90, 0.571);
+  left: -200px;
+  top: -300px;
+  transform: translate(-50%, -50%);
+}
+.eq {
+  --color: rgb(75, 118, 9) !important;
+  color: white;
+  --shadow: inset 0 0 2pt 0.5pt rgba(138, 189, 150, 0.807) !important;
+}
+
+.screen {
+  height: 120px;
+  background: radial-gradient(
+    circle,
+    rgba(186, 186, 186, 1) 0%,
+    rgba(189, 188, 188, 1) 34%,
+    rgba(130, 130, 130, 1) 100%
+  );
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  box-shadow: inset 0 0 1pt 4pt rgba(50, 50, 50, 0.656);
+  padding: 14px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 5px;
+  font-size: 1.5em;
+  box-sizing: border-box;
+}
+
+.screen .ans {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.diff {
+  --color: rgb(189, 33, 33) !important;
+  color: white;
+  --shadow: inset 0 0 2pt 0.5pt rgb(249, 166, 162) !important;
+}
+.button.text {
+  --color: rgb(189, 33, 33) !important;
+  color: white;
+  --shadow: inset 0 0 2pt 0.5pt rgb(249, 166, 162) !important;
+}
+.button.text .front {
+  font-size: 1.3em;
+  font-weight: 600;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.button {
+  --width: 60px;
+  --height: 60px;
+  --depth: 17px;
+  /* if --depth changed, shadow should manually be changed */
+  --color: rgb(42, 42, 42);
+  --shadow: inset 0 0 2pt 0.5pt rgba(77, 77, 77, 0.764);
+  transform: translate3d(-50px, 0px, 17px);
+  cursor: pointer;
+  user-select: none;
+  /* transition: transform 0.02s ease-in; */
+  color: white;
+}
+.button:hover {
+  --color: rgb(24, 24, 24);
+}
+.button:active {
+  transform: translate3d(-50px, 0px, 10px);
+}
+.button .back {
+  box-shadow: 0 0 1pt 2pt rgb(21, 21, 21) !important;
+}
+
+.button .front {
+  text-align: center;
+  line-height: var(--height);
+  font-size: 2em;
+  font-weight: 600;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.mesh {
+  position: absolute;
+}
+
+.mesh.no_absolute {
+  position: relative !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 100px;
+  position: absolute;
+  top: -140px;
+  left: -120px;
+}
+
+.box {
+  position: absolute;
+  perspective: 12000px;
+}
+
+.box .box_plane {
+  position: absolute;
+  background: var(--color);
+  box-shadow: var(--shadow);
+}
+.front {
+  width: var(--width);
+  height: var(--height);
+}
+.left {
+  width: var(--depth);
+  height: var(--height);
+  transform-origin: left;
+  transform: rotateY(90deg);
+}
+.right {
+  width: var(--depth);
+  height: var(--height);
+  transform-origin: left;
+  transform: translateX(var(--width)) rotateY(90deg);
+}
+
+.top {
+  width: var(--width);
+  height: var(--depth);
+  transform-origin: top;
+  transform: rotateX(-90deg);
+}
+.bottom {
+  width: var(--width);
+  height: var(--depth);
+  transform-origin: top;
+  transform: translateY(var(--height)) rotateX(-90deg);
+}
+.back {
+  width: var(--width);
+  height: var(--height);
+  transform: translateZ(calc(var(--depth) * -1));
+}
+
+.floor_p {
+  --width: 400px;
+  --height: 550px;
+  --depth: 0px;
+  --color: rgba(17, 17, 17, 0.618);
+  left: -200px;
+  top: -300px;
+  transform-origin: top;
+  transform: translateY(var(--height)) translateZ(-30px) rotateX(-110deg);
+  /* --shadow: 0 0 10pt 2pt rgba(77, 77, 77, 0.851); */
+}
+
+.b_floor {
+  --width: 2000px;
+  --height: 2px;
+  --depth: 2000px;
+  top: 10px;
+
+  transform: rotateX(90.05deg) translate3d(-500px, 0, 500px);
+  --color: url("docs/assets/table.avif");
+  --shadow: inset 0 0 2pt 2pt rgb(77, 77, 77);
+}
+
+.b_floor .box_plane {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
